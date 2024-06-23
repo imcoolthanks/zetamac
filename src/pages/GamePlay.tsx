@@ -17,6 +17,7 @@ function GamePlayPage() {
   const [score, setScore] = useState<number>(0);
   const [problemList, setProblemList] = useState<Problem[]>([]);
   const [currAnswer, setCurrAnswer] = useState<string>("");
+  const [totalAttempts, setTotalAttempts] = useState<number>(0);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -26,130 +27,9 @@ function GamePlayPage() {
       state: {
         score: score,
         gameLength: gameLength,
+        totalAttempts: totalAttempts,
       },
     });
-  };
-
-  const createProblemList = () => {
-    const userInputs = location.state;
-    const newProblemList: Problem[] = [];
-    const numOpsToInclude: number = [
-      userInputs.isAdditionChecked,
-      userInputs.isSubtractionChecked,
-      userInputs.isMultiplicationChecked,
-      userInputs.isDivisionChecked,
-    ].reduce((partialSum, a) => partialSum + a, 0);
-
-    const numProblemsPerOp: number = Math.floor(200 / numOpsToInclude);
-
-    if (userInputs.isAdditionChecked) {
-      const additionLowerBoundOne: number = userInputs.additionLowerBoundOne;
-      const additionUpperBoundOne: number = userInputs.additionUpperBoundOne;
-      const additionLowerBoundTwo: number = userInputs.additionLowerBoundTwo;
-      const additionUpperBoundTwo: number = userInputs.additionUpperBoundTwo;
-      for (let i = 0; i < numProblemsPerOp; i++) {
-        const addNumOne: number = randomIntFromInterval(
-          additionLowerBoundOne,
-          additionUpperBoundOne
-        );
-        const addNumTwo: number = randomIntFromInterval(
-          additionLowerBoundTwo,
-          additionUpperBoundTwo
-        );
-        const addProblem: Problem = {
-          numberOne: addNumOne.toString(),
-          operation: "+",
-          numberTwo: addNumTwo.toString(),
-          answer: (addNumOne + addNumTwo).toString(),
-        };
-        newProblemList.push(addProblem);
-      }
-    }
-
-    if (userInputs.isSubtractionChecked) {
-      const additionLowerBoundOne: number = userInputs.additionLowerBoundOne;
-      const additionUpperBoundOne: number = userInputs.additionUpperBoundOne;
-      const additionLowerBoundTwo: number = userInputs.additionLowerBoundTwo;
-      const additionUpperBoundTwo: number = userInputs.additionUpperBoundTwo;
-      for (let i = 0; i < numProblemsPerOp; i++) {
-        const subAnswer: number = randomIntFromInterval(
-          additionLowerBoundOne,
-          additionUpperBoundOne
-        );
-        const subNumTwo: number = randomIntFromInterval(
-          additionLowerBoundTwo,
-          additionUpperBoundTwo
-        );
-        const subNumOne: number = subAnswer + subNumTwo;
-        const subProblem: Problem = {
-          numberOne: subNumOne.toString(),
-          operation: "-",
-          numberTwo: subNumTwo.toString(),
-          answer: subAnswer.toString(),
-        };
-        newProblemList.push(subProblem);
-      }
-    }
-
-    if (userInputs.isMultiplicationChecked) {
-      const multiplicationLowerBoundOne: number =
-        userInputs.multiplicationLowerBoundOne;
-      const multiplicationUpperBoundOne: number =
-        userInputs.multiplicationUpperBoundOne;
-      const multiplicationLowerBoundTwo: number =
-        userInputs.multiplicationLowerBoundTwo;
-      const multiplicationUpperBoundTwo: number =
-        userInputs.multiplicationUpperBoundTwo;
-      for (let i = 0; i < numProblemsPerOp; i++) {
-        const multNumOne: number = randomIntFromInterval(
-          multiplicationLowerBoundOne,
-          multiplicationUpperBoundOne
-        );
-        const multNumTwo: number = randomIntFromInterval(
-          multiplicationLowerBoundTwo,
-          multiplicationUpperBoundTwo
-        );
-        const multProblem: Problem = {
-          numberOne: multNumOne.toString(),
-          operation: "x",
-          numberTwo: multNumTwo.toString(),
-          answer: (multNumOne * multNumTwo).toString(),
-        };
-        newProblemList.push(multProblem);
-      }
-    }
-
-    if (userInputs.isDivisionChecked) {
-      const multiplicationLowerBoundOne: number =
-        userInputs.multiplicationLowerBoundOne;
-      const multiplicationUpperBoundOne: number =
-        userInputs.multiplicationUpperBoundOne;
-      const multiplicationLowerBoundTwo: number =
-        userInputs.multiplicationLowerBoundTwo;
-      const multiplicationUpperBoundTwo: number =
-        userInputs.multiplicationUpperBoundTwo;
-
-      for (let i = 0; i < numProblemsPerOp; i++) {
-        const divAnswer: number = randomIntFromInterval(
-          multiplicationLowerBoundOne,
-          multiplicationUpperBoundOne
-        );
-        const divNumTwo: number = randomIntFromInterval(
-          multiplicationLowerBoundTwo,
-          multiplicationUpperBoundTwo
-        );
-        const divNumOne: number = divAnswer * divNumTwo;
-        const divProblem: Problem = {
-          numberOne: divNumOne.toString(),
-          operation: "/",
-          numberTwo: divNumTwo.toString(),
-          answer: divAnswer.toString(),
-        };
-        newProblemList.push(divProblem);
-      }
-    }
-    newProblemList.sort(() => Math.random() - 0.5);
-    return newProblemList;
   };
 
   const constructProblemString = () => {
@@ -169,6 +49,7 @@ function GamePlayPage() {
     setCurrAnswer(answer);
     const currProblemAnswer: string = problemList[0].answer;
 
+
     if (answer === currProblemAnswer) {
       const copyList: Problem[] = [...problemList];
       copyList.shift();
@@ -179,6 +60,127 @@ function GamePlayPage() {
   };
 
   useEffect(() => {
+    const createProblemList = () => {
+      const userInputs = location.state;
+      const newProblemList: Problem[] = [];
+      const numOpsToInclude: number = [
+        userInputs.isAdditionChecked,
+        userInputs.isSubtractionChecked,
+        userInputs.isMultiplicationChecked,
+        userInputs.isDivisionChecked,
+      ].reduce((partialSum, a) => partialSum + a, 0);
+  
+      const numProblemsPerOp: number = Math.floor(200 / numOpsToInclude);
+  
+      if (userInputs.isAdditionChecked) {
+        const additionLowerBoundOne: number = userInputs.additionLowerBoundOne;
+        const additionUpperBoundOne: number = userInputs.additionUpperBoundOne;
+        const additionLowerBoundTwo: number = userInputs.additionLowerBoundTwo;
+        const additionUpperBoundTwo: number = userInputs.additionUpperBoundTwo;
+        for (let i = 0; i < numProblemsPerOp; i++) {
+          const addNumOne: number = randomIntFromInterval(
+            additionLowerBoundOne,
+            additionUpperBoundOne
+          );
+          const addNumTwo: number = randomIntFromInterval(
+            additionLowerBoundTwo,
+            additionUpperBoundTwo
+          );
+          const addProblem: Problem = {
+            numberOne: addNumOne.toString(),
+            operation: "+",
+            numberTwo: addNumTwo.toString(),
+            answer: (addNumOne + addNumTwo).toString(),
+          };
+          newProblemList.push(addProblem);
+        }
+      }
+  
+      if (userInputs.isSubtractionChecked) {
+        const additionLowerBoundOne: number = userInputs.additionLowerBoundOne;
+        const additionUpperBoundOne: number = userInputs.additionUpperBoundOne;
+        const additionLowerBoundTwo: number = userInputs.additionLowerBoundTwo;
+        const additionUpperBoundTwo: number = userInputs.additionUpperBoundTwo;
+        for (let i = 0; i < numProblemsPerOp; i++) {
+          const subAnswer: number = randomIntFromInterval(
+            additionLowerBoundOne,
+            additionUpperBoundOne
+          );
+          const subNumTwo: number = randomIntFromInterval(
+            additionLowerBoundTwo,
+            additionUpperBoundTwo
+          );
+          const subNumOne: number = subAnswer + subNumTwo;
+          const subProblem: Problem = {
+            numberOne: subNumOne.toString(),
+            operation: "-",
+            numberTwo: subNumTwo.toString(),
+            answer: subAnswer.toString(),
+          };
+          newProblemList.push(subProblem);
+        }
+      }
+  
+      if (userInputs.isMultiplicationChecked) {
+        const multiplicationLowerBoundOne: number =
+          userInputs.multiplicationLowerBoundOne;
+        const multiplicationUpperBoundOne: number =
+          userInputs.multiplicationUpperBoundOne;
+        const multiplicationLowerBoundTwo: number =
+          userInputs.multiplicationLowerBoundTwo;
+        const multiplicationUpperBoundTwo: number =
+          userInputs.multiplicationUpperBoundTwo;
+        for (let i = 0; i < numProblemsPerOp; i++) {
+          const multNumOne: number = randomIntFromInterval(
+            multiplicationLowerBoundOne,
+            multiplicationUpperBoundOne
+          );
+          const multNumTwo: number = randomIntFromInterval(
+            multiplicationLowerBoundTwo,
+            multiplicationUpperBoundTwo
+          );
+          const multProblem: Problem = {
+            numberOne: multNumOne.toString(),
+            operation: "x",
+            numberTwo: multNumTwo.toString(),
+            answer: (multNumOne * multNumTwo).toString(),
+          };
+          newProblemList.push(multProblem);
+        }
+      }
+  
+      if (userInputs.isDivisionChecked) {
+        const multiplicationLowerBoundOne: number =
+          userInputs.multiplicationLowerBoundOne;
+        const multiplicationUpperBoundOne: number =
+          userInputs.multiplicationUpperBoundOne;
+        const multiplicationLowerBoundTwo: number =
+          userInputs.multiplicationLowerBoundTwo;
+        const multiplicationUpperBoundTwo: number =
+          userInputs.multiplicationUpperBoundTwo;
+  
+        for (let i = 0; i < numProblemsPerOp; i++) {
+          const divAnswer: number = randomIntFromInterval(
+            multiplicationLowerBoundOne,
+            multiplicationUpperBoundOne
+          );
+          const divNumTwo: number = randomIntFromInterval(
+            multiplicationLowerBoundTwo,
+            multiplicationUpperBoundTwo
+          );
+          const divNumOne: number = divAnswer * divNumTwo;
+          const divProblem: Problem = {
+            numberOne: divNumOne.toString(),
+            operation: "/",
+            numberTwo: divNumTwo.toString(),
+            answer: divAnswer.toString(),
+          };
+          newProblemList.push(divProblem);
+        }
+      }
+      newProblemList.sort(() => Math.random() - 0.5);
+      return newProblemList;
+    };
     if (location.state !== null) {
       console.log("game length and problem set being set");
       setGameLength(location.state.gameLength);
@@ -220,6 +222,11 @@ function GamePlayPage() {
           fontSize="4xl"
           autoFocus={true}
           onChange={checkAnswer}
+          onKeyDown={ (event) => {
+            if (event.key === "Backspace") {
+              setTotalAttempts(totalAttempts + 1);
+            }}
+          }
           value={currAnswer}
         />
       </Center>
