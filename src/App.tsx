@@ -8,19 +8,19 @@ import {
 import GameStartForm from "./pages/GameStartForm";
 import GamePlayPage from "./pages/GamePlay";
 import GameScorePage from "./pages/GameScore";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HashRouter , Route, Routes } from "react-router-dom";
 export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <ColorModeProvider>
         <CSSReset />
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <HashRouter>
           <Routes>
             <Route path="/" element={<GameStartForm />} />
             <Route path="/gamePlayPage" element={<GamePlayPage />} />
             <Route path="/gameScorePage" element={<GameScorePage />} />
           </Routes>
-        </BrowserRouter>
+        </HashRouter >
       </ColorModeProvider>
     </ThemeProvider>
   );
