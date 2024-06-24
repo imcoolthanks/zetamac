@@ -131,70 +131,74 @@ function GameStartForm() {
   };
 
   return (
-    <Flex width="full" align="center" justifyContent="center">
-      <Box p={2}>
-        <Box textAlign="center">
+    <Flex width="full" align="center" justifyContent="center" marginTop="27vh">
+      <Box p={2} width="440px" padding="20px" background="#dddddd" overflow="hidden" margin="0 auto">
+        <Box>
           <Heading>Arithmetic Game</Heading>
-          <Text maxWidth="600px" marginTop="10px">
-            The Arithmetic Game is a fast-paced speed drill where yousolve as
-            many arithmetic problems as you can. Just select what operations you
-            want, their number ranges, and for how long you want to play the
-            game.
+          <Text maxWidth="400px" marginTop="10px">
+            The Arithmetic Game is a fast-paced speed drill where you are given two minutes to solve as many arithmetic problems as you can.
+          </Text>
+          <Text marginTop="30px">
+            Default zetamac settings are applied.
           </Text>
         </Box>
         <Box my={4} textAlign="left">
           <form>
-            <FormControl mt={6}>
+            {/* <FormControl mt={6}>
               <InputGroup>
                 <IconButton
                   colorScheme="teal"
                   variant={isAdditionChecked ? "solid" : "outline"}
                   onClick={setIsAdditionCheckedWithVal}
                   aria-label="Call Segun"
-                  size="md"
+                  size="sm"
                   icon={<AdditionIcon />}
                 />
-                <Text fontSize="2xl" marginInline="12.5px">
+                <Text fontSize="sm" marginInline="12.5px">
                   (
                 </Text>
                 <RangeInput
                   defaultValue={additionLowerBoundOne}
-                  isDisabled={!isAdditionChecked}
+                  isDisabled={!isAdditionChecked}                  
+                  size="sm"
                   onChange={(e: unknown) =>
                     setAdditionLowerBoundOne(e as unknown as number)
                   }
                 />
-                <Text fontSize="2xl" marginInline="12.5px">
+                <Text fontSize="sm" marginInline="12.5px">
                   to
                 </Text>
                 <RangeInput
                   defaultValue={additionUpperBoundOne}
                   isDisabled={!isAdditionChecked}
+                  size="sm"
                   onChange={(e: unknown) =>
                     setAdditionUpperBoundOne(e as unknown as number)
                   }
                 />
-                <Text fontSize="2xl" marginInline="12.5px">
+                <Text fontSize="sm" marginInline="12.5px">
                   ) + (
                 </Text>
                 <RangeInput
                   defaultValue={additionLowerBoundTwo}
-                  isDisabled={!isAdditionChecked}
+                  isDisabled={!isAdditionChecked}                  
+                  size="sm"
                   onChange={(e: unknown) =>
                     setAdditionLowerBoundTwo(e as unknown as number)
                   }
                 />
-                <Text fontSize="2xl" marginInline="12.5px">
+                <Text fontSize="sm" marginInline="12.5px">
                   to
                 </Text>
                 <RangeInput
                   defaultValue={additionUpperBoundTwo}
-                  isDisabled={!isAdditionChecked}
+                  isDisabled={!isAdditionChecked}                  
+                  size="sm"
                   onChange={(e: unknown) =>
                     setAdditionUpperBoundTwo(e as unknown as number)
                   }
                 />
-                <Text fontSize="2xl" marginInline="12.5px">
+                <Text fontSize="sm" marginInline="12.5px">
                   )
                 </Text>
               </InputGroup>
@@ -206,10 +210,10 @@ function GameStartForm() {
                   variant={isSubtractionChecked ? "solid" : "outline"}
                   onClick={setIsSubtractionCheckedWithVal}
                   aria-label="Call Segun"
-                  size="md"
+                  size="sm"
                   icon={<SubtractionIcon />}
                 />
-                <Text fontSize="2xl" marginInline="12.5px">
+                <Text fontSize="sm" marginInline="12.5px">
                   Subtraction range is addition range in reverse
                 </Text>
               </InputGroup>
@@ -221,50 +225,54 @@ function GameStartForm() {
                   variant={isMultiplicationChecked ? "solid" : "outline"}
                   onClick={setIsMultiplicationCheckedWithVal}
                   aria-label="Call Segun"
-                  size="md"
+                  size="sm"
                   icon={<MultiplicationIcon />}
                 />
-                <Text fontSize="2xl" marginInline="12.5px">
+                <Text fontSize="sm" marginInline="12.5px">
                   (
                 </Text>
                 <RangeInput
                   defaultValue={multiplicationLowerBoundOne}
                   isDisabled={!isMultiplicationChecked}
+                  size="sm"
                   onChange={(e: unknown) =>
                     setMultiplicationLowerBoundOne(e as unknown as number)
                   }
                 />
-                <Text fontSize="2xl" marginInline="12.5px">
+                <Text fontSize="sm" marginInline="12.5px">
                   to
                 </Text>
                 <RangeInput
                   defaultValue={multiplicationUpperBoundOne}
                   isDisabled={!isMultiplicationChecked}
+                  size="sm"
                   onChange={(e: unknown) =>
                     setMultiplicationUpperBoundOne(e as unknown as number)
                   }
                 />
-                <Text fontSize="2xl" marginInline="12.5px">
+                <Text fontSize="sm" marginInline="12.5px">
                   ) x (
                 </Text>
                 <RangeInput
                   defaultValue={multiplicationLowerBoundTwo}
                   isDisabled={!isMultiplicationChecked}
+                  size="sm"
                   onChange={(e: unknown) =>
                     setMultiplicationLowerBoundTwo(e as unknown as number)
                   }
                 />
-                <Text fontSize="2xl" marginInline="12.5px">
+                <Text fontSize="sm" marginInline="12.5px">
                   to
                 </Text>
                 <RangeInput
                   defaultValue={multiplicationUpperBoundTwo}
                   isDisabled={!isMultiplicationChecked}
+                                    size="sm"
                   onChange={(e: unknown) =>
                     setMultiplicationUpperBoundTwo(e as unknown as number)
                   }
                 />
-                <Text fontSize="2xl" marginInline="12.5px">
+                <Text fontSize="sm" marginInline="12.5px">
                   )
                 </Text>
               </InputGroup>
@@ -276,14 +284,14 @@ function GameStartForm() {
                   variant={isDivisionChecked ? "solid" : "outline"}
                   onClick={setIsDivisionCheckedWithVal}
                   aria-label="Call Segun"
-                  size="md"
+                  size="sm"
                   icon={<DivisionIcon />}
                 />
-                <Text fontSize="2xl" marginInline="12.5px">
+                <Text fontSize="sm" marginInline="12.5px">
                   Division range is multiplication range in reverse
                 </Text>
               </InputGroup>
-            </FormControl>
+            </FormControl> */}
 
             <FormControl mt={6}>
               <InputGroup>
@@ -320,16 +328,20 @@ function GameStartForm() {
 function RangeInput(props: any) {
   return (
     <NumberInput
-      defaultValue={props.defaultValue}
       onChange={props.onChange}
       isDisabled={props.isDisabled}
+      size={props.size}
+      defaultValue={props.defaultValue}
+      padding="0px"
       width="80px"
     >
-      <NumberInputField />
-      <NumberInputStepper>
+      <NumberInputField 
+        padding="10px"
+        defaultValue={props.defaultValue}/>
+      {/* <NumberInputStepper flex="1">
         <NumberIncrementStepper />
         <NumberDecrementStepper />
-      </NumberInputStepper>
+      </NumberInputStepper> */}
     </NumberInput>
   );
 }

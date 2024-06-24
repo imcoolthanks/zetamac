@@ -59,6 +59,16 @@ function GamePlayPage() {
     }
   };
 
+  const shuffle = (array: Array<Problem>) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+  }
+  
+
   useEffect(() => {
     const createProblemList = () => {
       const userInputs = location.state;
@@ -70,7 +80,9 @@ function GamePlayPage() {
         userInputs.isDivisionChecked,
       ].reduce((partialSum, a) => partialSum + a, 0);
   
-      const numProblemsPerOp: number = Math.floor(200 / numOpsToInclude);
+      const numProblemsPerOp: number = Math.floor((location.state.gameLength / 30) * 25 / numOpsToInclude);
+
+      console.log(numProblemsPerOp);
   
       if (userInputs.isAdditionChecked) {
         const additionLowerBoundOne: number = userInputs.additionLowerBoundOne;
@@ -178,7 +190,8 @@ function GamePlayPage() {
           newProblemList.push(divProblem);
         }
       }
-      newProblemList.sort(() => Math.random() - 0.5);
+      // newProblemList.sort(() => Math.random() - 0.5);
+      shuffle(newProblemList);
       return newProblemList;
     };
     if (location.state !== null) {
