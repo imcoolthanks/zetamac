@@ -14,7 +14,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <ColorModeProvider>
         <CSSReset />
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
           <Routes>
             <Route path="/" element={<GameStartForm />} />
             <Route path="/gamePlayPage" element={<GamePlayPage />} />
